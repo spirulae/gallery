@@ -10,7 +10,7 @@ output_dir = 'img/'
 
 image_files = [file for file in os.listdir(image_dir)
                if file.lower().endswith(('.jpg', '.jpeg', '.png'))]
-image_files.sort(key=lambda x: x.split('-')[0])
+image_files.sort(key=lambda x: int(x.split('-')[0]))
 
 MAX_WIDTH = 768
 MAX_HEIGHT = 768
