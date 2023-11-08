@@ -2,9 +2,18 @@ import re
 from hashlib import md5
 import os
 import datetime
+import json
+
+json_path = "raw/attachments.json"
+with open(json_path, 'r') as fp:
+    attachment_info = json.load(fp)
+image_url = {}
+for url, filename in attachment_info:
+    filename = filename[:filename.rfind('.')]
+    image_url[filename] = url
 
 image_dir = 'img/'
-#image_dir = '../miscellaneous/discord/attachments'
+#image_dir = '../miscellaneous/discord/img'
 
 image_files = [file for file in os.listdir(image_dir)
                if file.lower().endswith(('.jpg', '.jpeg', '.png'))]
@@ -22,25 +31,41 @@ html = """<!DOCTYPE html>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spirulae Gallery</title>
-    <style>
-        img { max-height: 180px; max-width: 30%; }
-    </style>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
 </head>
 <body>
+    <div id="display-container" style="display:none">
+        <img id="display" src=""></img>
+    </div>
+
+    <h1>Spirulae Gallery</h1>
+    <p style="max-width:800px">
+        <i><a href="https://github.com/harry7557558">harry7557558<a></i> -
+        Gallery for the <a href="https://spirulae.github.io">Spirulae</a> graphing calculator.
+        Includes reverse chronologically ordered unfiltered images (everything) scraped from Discord where I sent screenshots to when developing spirulae.
+        Intended to be a progress overview rather than a showcase gallery.
+    <p>
+    <hr/>
+
+    <div id="content">
 """
 
 prev_month = None
 
 for fi in range(len(image_files)):
-    image_file = os.path.join(image_dir, image_files[fi])
+    filename = image_files[fi]
+    image_file = os.path.join(image_dir, filename)
     h = md5(open(image_file, 'rb').read()).hexdigest()
     if h in hashes:
         continue
     hashes.add(h)
 
-    date = snowflake_time(image_files[fi].split('-')[0])
+    snowflake = filename.split('-')[0]
+    date = snowflake_time(snowflake)
     month = date.strftime('%B %Y')
     date = date.strftime('%Y-%m-%d')
+    url = image_url[filename[:filename.rfind('.')]]
 
     print(fi, '/', len(image_files), date)
 
@@ -49,11 +74,13 @@ for fi in range(len(image_files)):
             html += "<br/><hr/>\n"
         html += "<h1>" + month + "</h1>\n"
         prev_month = month
-    html += f"""<img src="{image_file}" title="{date}" loading="lazy"/>\n"""
+    html += f"""<a href="{url}"><img id="{snowflake}" src="{image_file}" title="{date}" loading="lazy"/></a>\n"""
 
-html += """</body>"""
+html += """
+    </div>
+</body>"""
 
 print(len(hashes), "images")
 
 
-open("gallery.html", "w").write(html)
+open("index.html", "w").write(html)

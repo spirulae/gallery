@@ -7,6 +7,8 @@ import os
 
 image_dir = 'raw/'
 output_dir = 'img/'
+# image_dir = '../miscellaneous/discord/attachments'
+# output_dir = '../miscellaneous/discord/img'
 
 image_files = [file for file in os.listdir(image_dir)
                if file.lower().endswith(('.jpg', '.jpeg', '.png'))]

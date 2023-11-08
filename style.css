@@ -1,0 +1,22 @@
+#content img {
+    max-height: 180px;
+    max-width: 48%;
+}
+
+#display-container {
+    position: fixed;
+    display: flex;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    justify-content: center;
+    background-color: rgba(96, 96, 96, 0.7);
+}
+
+#display {
+    margin: auto;
+    max-height: 95%;
+    max-width: 95%;
+}
