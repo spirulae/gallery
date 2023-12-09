@@ -41,10 +41,12 @@ function initClickPreview() {
         if (cur_id === "") return;
         let cur_image = document.getElementById(cur_id);
         if (event.key == "ArrowLeft") {
+            event.preventDefault();
             history.back();
             document.getElementById(cur_image.getAttribute("prev")).click();
         }
         if (event.key == "ArrowRight") {
+            event.preventDefault();
             history.back();
             document.getElementById(cur_image.getAttribute("next")).click();
         }        
