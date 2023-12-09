@@ -1,6 +1,7 @@
 import re
 from hashlib import md5
 import os
+import markdown
 import datetime
 import json
 
@@ -25,6 +26,9 @@ hashes = set()
 def snowflake_time(snowflake):
     return datetime.datetime.utcfromtimestamp(((int(snowflake) >> 22) + 1420070400000) / 1000)
 
+description = open("html_description.md").read()
+description = markdown.markdown(description)
+
 html = """<!DOCTYPE html>
 <html>
 <head>
@@ -40,12 +44,9 @@ html = """<!DOCTYPE html>
     </div>
 
     <h1>Spirulae Gallery</h1>
-    <p style="max-width:800px">
-        <i><a href="https://github.com/harry7557558">harry7557558<a></i> -
-        Gallery for the <a href="https://spirulae.github.io">Spirulae</a> graphing calculator.
-        Includes reverse chronologically ordered unfiltered images (everything) scraped from Discord where I sent screenshots to when developing spirulae.
-        Intended to be a progress overview rather than a showcase gallery.
-    <p>
+    <div style="max-width:800px">
+        """ + description + """
+    </div>
     <hr/>
 
     <div id="content">
