@@ -43,13 +43,15 @@ function initClickPreview() {
         if (event.key == "ArrowLeft") {
             event.preventDefault();
             history.back();
-            document.getElementById(cur_image.getAttribute("prev")).click();
+            setTimeout(() => document.getElementById(
+                cur_image.getAttribute("prev")).click(), 10);
         }
         if (event.key == "ArrowRight") {
             event.preventDefault();
             history.back();
-            document.getElementById(cur_image.getAttribute("next")).click();
-        }        
+            setTimeout(() => document.getElementById(
+                cur_image.getAttribute("next")).click(), 10);
+        }
     });
 
 }
