@@ -1,4 +1,5 @@
-*[harry7557558](https://github.com/harry7557558)<a>* -
+*[harry7557558](https://github.com/harry7557558), updated {%updated%}*
+
 Gallery for the [Spirulae](https://spirulae.github.io) graphing calculator.
 Includes reverse chronologically ordered unfiltered images (everything) scraped from Discord where I sent screenshots to when developing spirulae.
 Intended to be a progress overview rather than a showcase gallery.

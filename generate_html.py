@@ -2,7 +2,7 @@ import re
 from hashlib import md5
 import os
 import markdown
-import datetime
+from datetime import datetime
 import json
 
 json_path = "raw/attachments.json"
@@ -24,10 +24,13 @@ hashes = set()
 
 
 def snowflake_time(snowflake):
-    return datetime.datetime.utcfromtimestamp(((int(snowflake) >> 22) + 1420070400000) / 1000)
+    return datetime.utcfromtimestamp(((int(snowflake) >> 22) + 1420070400000) / 1000)
 
 description = open("html_description.md").read()
 description = markdown.markdown(description)
+
+updated = datetime.now().strftime("%Y/%m/%d")
+description = description.replace("{%updated%}", updated)
 
 html = """<!DOCTYPE html>
 <html>
