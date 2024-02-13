@@ -43,7 +43,7 @@ html = """<!DOCTYPE html>
 </head>
 <body>
     <div id="display-container" style="display:none">
-        <img id="display" src=""></img>
+        <img id="display" src="" />
     </div>
 
     <h1>Spirulae Gallery</h1>
