@@ -69,9 +69,13 @@ for fi in range(len(image_files)):
     date = snowflake_time(snowflake)
     month = date.strftime('%B %Y')
     date = date.strftime('%Y-%m-%d')
-    url = image_url[filename[:filename.rfind('.')]]
+    key = filename[:filename.rfind('.')]
+    if key not in image_url:
+        print("Missing info:", filename)
+        continue
+    url = image_url[key]
 
-    print(fi, '/', len(image_files), date)
+    #print(fi, '/', len(image_files), date)
 
     if month != prev_month:
         if prev_month != None:
