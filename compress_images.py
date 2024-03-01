@@ -4,6 +4,7 @@ from PIL import Image
 import re
 from hashlib import md5
 import os
+import json
 
 image_dir = 'raw/'
 output_dir = 'img/'
@@ -19,15 +20,19 @@ MAX_HEIGHT = 768
 
 hashes = set()
 
+pairs = {}
+
 for fi in range(len(image_files)):
     image_file = os.path.join(image_dir, image_files[fi])
+    output_file = os.path.join(output_dir,
+            '.'.join(image_files[fi].split('.')[:-1])+'.jpg')
+    pairs[output_file] = image_file
+
     h = md5(open(image_file, 'rb').read()).hexdigest()
     if h in hashes:
         continue
     hashes.add(h)
 
-    output_file = os.path.join(output_dir,
-            '.'.join(image_files[fi].split('.')[:-1])+'.jpg')
     if os.path.isfile(output_file):
         continue
     print(fi, '/', len(image_files))
@@ -41,4 +46,5 @@ for fi in range(len(image_files)):
 
 print(len(hashes), "images")
 
-
+with open("pairs.json", "w") as fp:
+    json.dump(pairs, fp)

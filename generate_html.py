@@ -13,6 +13,9 @@ for url, filename in attachment_info:
     filename = filename[:filename.rfind('.')]
     image_url[filename] = url
 
+with open("pairs.json", "r") as fp:
+    pairs = json.load(fp)
+
 image_dir = 'img/'
 #image_dir = '../miscellaneous/discord/img'
 
@@ -74,6 +77,8 @@ for fi in range(len(image_files)):
         print("Missing info:", filename)
         continue
     url = image_url[key]
+    # url = 'raw/'+url[url.rfind('/'):url.rfind('?')]
+    url = pairs[image_dir+filename]
 
     #print(fi, '/', len(image_files), date)
 
