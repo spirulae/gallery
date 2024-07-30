@@ -23,6 +23,22 @@ image_files = [file for file in os.listdir(image_dir)
                if file.lower().endswith(('.jpg', '.jpeg', '.png'))]
 image_files.sort(key=lambda x: -int(x.split('-')[0]))
 
+
+exclude = [
+    (1262946591099326524, 1262955480041652307)
+]
+
+def is_excluded(snowflake):
+    snowflake = int(snowflake)
+    for exc in exclude:
+        if isinstance(exc, tuple):
+            if exc[0] <= snowflake <= exc[1]:
+                return True
+        if exc ==  snowflake:
+            return True
+    return False
+
+
 hashes = set()
 
 
@@ -80,6 +96,10 @@ for fi in range(len(image_files)):
     # url = 'raw/'+url[url.rfind('/'):url.rfind('?')]
     url = pairs[image_dir+filename]
 
+    attr = ""
+    if is_excluded(snowflake):
+        attr = ' class="hidden"' 
+
     #print(fi, '/', len(image_files), date)
 
     if month != prev_month:
@@ -87,7 +107,7 @@ for fi in range(len(image_files)):
             html += "<br/><hr/>\n"
         html += "<h1>" + month + "</h1>\n"
         prev_month = month
-    html += f"""<a href="{url}"><img id="{snowflake}" src="{image_file}" title="{date}" loading="lazy"/></a>\n"""
+    html += f"""<a{attr} href="{url}"><img id="{snowflake}" src="{image_file}" title="{date}" loading="lazy"/></a>\n"""
 
 html += """
     </div>
