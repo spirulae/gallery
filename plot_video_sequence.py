@@ -14,7 +14,8 @@ fourcc = cv2.VideoWriter_fourcc(*'XVID')  # Codec for mp4 format
 frame_rate = 20
 
 # Get a list of image files in the directory, sorted by file id
-image_files = [os.path.join(image_dir, file) for file in os.listdir(image_dir) if file.lower().endswith(('.jpg', '.jpeg', '.png'))]
+image_files = [os.path.join(image_dir, file) for file in os.listdir(image_dir)
+               if file.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp'))]
 image_files.sort(key=lambda x: int(x.split('/')[-1].split('-')[0]))
 
 # Get the dimensions for the video frames
@@ -35,6 +36,8 @@ for fi in range(len(image_files)):
     print(fi, '/', len(image_files))
 
     image = cv2.imread(image_file)
+    if image is None:
+        continue
 
     image_height, image_width, _ = image.shape
     sc = min(frame_width / image_width, frame_height / image_height)

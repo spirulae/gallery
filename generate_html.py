@@ -20,7 +20,7 @@ image_dir = 'img/'
 #image_dir = '../miscellaneous/discord/img'
 
 image_files = [file for file in os.listdir(image_dir)
-               if file.lower().endswith(('.jpg', '.jpeg', '.png'))]
+               if file.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp'))]
 image_files.sort(key=lambda x: -int(x.split('-')[0]))
 
 
